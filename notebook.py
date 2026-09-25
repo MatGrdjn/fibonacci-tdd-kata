@@ -9,11 +9,39 @@ def _():
     import pytest
     import marimo as mo
 
-    return (pytest,)
+    return mo, pytest
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    # Kata TDD - Fibonacci Sequence
+
+    This notebook illustrates the Fibonacci sequence implementation following the TDD cycle.
+
+    ### Mathematical definition :
+    - $F(0) = 0$
+    - $F(1) = 1$
+    - $F(n) = F(n-1) + F(n-2)$ for $n \ge 2$
+    """)
+    return
 
 
 @app.function
 def fibonacci(n: int) -> int:
+    """
+    Compute the n-th term of the Fibonacci sequence (recursively)
+
+    Args:
+        n (int): Index of the desired term (must be a positive integer or zero)
+
+    Returns: 
+        int: Value of F(n)
+
+    Raises:
+        TypeError: If n is not an integer or a boolean
+        ValueError: If n is negative
+    """
 
     if not isinstance(n, int) or isinstance(n, bool):
         raise TypeError("n must be an int")
@@ -60,6 +88,24 @@ def _(pytest):
         with pytest.raises(expected_exception, match=expected_message):
             fibonacci(input)
 
+    return
+
+
+@app.cell
+def _(mo):
+    n_input = mo.ui.slider(start=0, stop=30, step=1, value=0, label="n")
+    n_input
+    return (n_input,)
+
+
+@app.cell
+def _(mo, n_input):
+    try:
+        result = fibonacci(int(n_input.value))
+        output = mo.md(f"`fibonacci({n_input.value})` → **{result}**")
+    except ValueError as e:
+        output = mo.md(f"⚠️ Error: {e}")
+    output
     return
 
 
