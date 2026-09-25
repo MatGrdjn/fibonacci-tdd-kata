@@ -8,8 +8,9 @@ app = marimo.App()
 def _():
     import pytest
     import marimo as mo
+    import time
 
-    return mo, pytest
+    return mo, pytest, time
 
 
 @app.cell(hide_code=True)
@@ -87,6 +88,19 @@ def _(pytest):
     def test_fibonacci_errors(input, expected_exception, expected_message):
         with pytest.raises(expected_exception, match=expected_message):
             fibonacci(input)
+
+    return
+
+
+@app.cell
+def _(time):
+    def test_fibonacci_large_n():
+        start = time.perf_counter()
+        res = fibonacci(100_000)
+        duration = time.perf_counter() - start
+
+        assert res > 0
+        assert duration < 1.0  
 
     return
 
