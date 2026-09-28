@@ -7,8 +7,8 @@ app = marimo.App()
 @app.cell
 def _():
     import pytest
-    import marimo as mo
     import time
+    import marimo as mo
 
     return mo, pytest, time
 
@@ -101,6 +101,31 @@ def _(time):
 
         assert res > 0
         assert duration < 1.0  
+    
+    def test_fibonacci_large_scale_performance():
+        start = time.perf_counter()
+        result = fibonacci(100_000)
+        elapsed = time.perf_counter() - start
+
+        assert result > 0
+        assert elapsed < 0.5, f"Too slow : {elapsed:.3f}s"
+
+        return
+
+    return
+
+
+@app.cell
+def _(pytest, time):
+    @pytest.mark.timeout(3)
+    def test_fibonacci_extreme_scale():
+        n = 10_000_000
+        start = time.perf_counter()
+        result = fibonacci(n)
+        elapsed = time.perf_counter() - start
+
+        assert result > 0
+        assert elapsed < 3.0, f"Too slow for 10^7 : {elapsed:.3f}s"
 
     return
 
