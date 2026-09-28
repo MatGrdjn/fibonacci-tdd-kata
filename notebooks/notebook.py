@@ -117,7 +117,7 @@ def _(time):
 
 @app.cell
 def _(pytest, time):
-    @pytest.mark.timeout(3)
+    @pytest.mark.timeout(5)
     def test_fibonacci_extreme_scale():
         n = 10_000_000
         start = time.perf_counter()

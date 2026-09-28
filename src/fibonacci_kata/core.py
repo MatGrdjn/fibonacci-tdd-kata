@@ -1,6 +1,6 @@
 def fibonacci(n: int) -> int:
     """
-    Compute the n-th term of the Fibonacci sequence (recursively)
+    Compute the n-th term of the Fibonacci sequence using the Fast Doubling Algorithm.
 
     Args:
         n (int): Index of the desired term (must be a positive integer or zero)
@@ -18,11 +18,18 @@ def fibonacci(n: int) -> int:
     if n < 0:
         raise ValueError("n must be positive or null")
 
-    if n == 0:
-        return 0
-    if n == 1:
-        return 1
+    a, b = 0, 1
     
-    return fibonacci(n-1) + fibonacci(n-2)
-
-    
+    for bit in bin(n)[2:]:
+        a2 = a * a
+        b2 = b * b
+        
+        c = a * (2 * b - a)
+        d = a2 + b2
+        
+        if bit == '0':
+            a, b = c, d
+        else:
+            a, b = d, c + d
+            
+    return a
