@@ -1,7 +1,9 @@
-import pytest
 import time
 
+import pytest
+
 from fibonacci_kata import fibonacci
+
 
 @pytest.mark.parametrize(
     ("n", "expected"),
