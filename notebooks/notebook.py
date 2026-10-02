@@ -6,9 +6,10 @@ app = marimo.App()
 
 @app.cell
 def _():
-    import pytest
-    import marimo as mo
     import time
+
+    import marimo as mo
+    import pytest
 
     return mo, pytest, time
 
@@ -36,7 +37,7 @@ def fibonacci(n: int) -> int:
     Args:
         n (int): Index of the desired term (must be a positive integer or zero)
 
-    Returns: 
+    Returns:
         int: Value of F(n)
 
     Raises:
@@ -50,19 +51,19 @@ def fibonacci(n: int) -> int:
         raise ValueError("n must be positive or null")
 
     a, b = 0, 1
-    
+
     for bit in bin(n)[2:]:
         a2 = a * a
         b2 = b * b
-        
+
         c = a * (2 * b - a)
         d = a2 + b2
-        
-        if bit == '0':
+
+        if bit == "0":
             a, b = c, d
         else:
             a, b = d, c + d
-            
+
     return a
 
 
@@ -70,12 +71,7 @@ def fibonacci(n: int) -> int:
 def _(pytest):
     @pytest.mark.parametrize(
         ("n", "expected"),
-        [
-            (0, 0),
-            (1, 1),
-            (2, 1),
-            (5, 5)
-        ],
+        [(0, 0), (1, 1), (2, 1), (5, 5)],
     )
     def test_fibonacci_suscess(n, expected):
         assert fibonacci(n) == expected
@@ -110,7 +106,6 @@ def _(time):
 
         assert result > 0
         assert elapsed < 0.5, f"Too slow : {elapsed:.3f}s"
-
 
     return
 
