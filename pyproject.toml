@@ -49,3 +49,6 @@ source = ["src"]
 [tool.coverage.report]
 show_missing = true
 fail_under = 90
+
+[project.scripts]
+fibonacci-kata = "fibonacci_kata.cli:main"
