@@ -13,3 +13,11 @@ wheels/
 
 # Marimo
 __marimo__/
+
+#site
+site/
+
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
